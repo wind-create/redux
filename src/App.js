@@ -1,27 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
-import { createStore } from 'redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 
 const redux = () => {
   const initialState = { value: 0 }
-  const counterReducer = (state = initialState, action) => {
-    switch (action.type) {
-      case 'increment':
-        return { value: state.value + 1 }
-      case 'decrement':
-        return { value: state.value - 1 }
-      default:
-        return state
-    }
-  }
-  let store = createStore(counterReducer)
 
+  const counterSlice = createSlice({
+    name: 'counter',
+    initialState,
+    reducers: {
+      increment: state => {
+        (state.value += 1)
+      },
+      decrement: state => {
+        (state.value -= 1)
+      }
+    }
+  })
+
+  const store = configureStore({ reducer: counterSlice.reducer })
+  const { increment, decrement } = counterSlice.actions
   store.subscribe(() => console.log(store.getState()))
 
-  store.dispatch({ type: 'increment' })
-  store.dispatch({ type: 'increment' })
-  store.dispatch({ type: 'decrement' })
+  store.dispatch(increment())
+  store.dispatch(increment())
+  store.dispatch(decrement())
 }
 redux()
 function App() {
