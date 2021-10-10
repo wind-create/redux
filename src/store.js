@@ -3,5 +3,6 @@ import counterReducer from './reducers/counter'
 export const store = configureStore({
     reducer: {
         counter: counterReducer,
+        copy: counterReducer,
     },
 })
