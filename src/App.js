@@ -1,26 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import { createSlice, configureStore } from '@reduxjs/toolkit';
+import { store } from './store'
+import { increment, decrement } from './reducers/counter'
+
 
 
 const redux = () => {
-  const initialState = { value: 0 }
 
-  const counterSlice = createSlice({
-    name: 'counter',
-    initialState,
-    reducers: {
-      increment: state => {
-        (state.value += 1)
-      },
-      decrement: state => {
-        (state.value -= 1)
-      }
-    }
-  })
-
-  const store = configureStore({ reducer: counterSlice.reducer })
-  const { increment, decrement } = counterSlice.actions
   store.subscribe(() => console.log(store.getState()))
 
   store.dispatch(increment())
